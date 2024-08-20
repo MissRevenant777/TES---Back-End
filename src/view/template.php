@@ -6,7 +6,7 @@
   </head>
   <body>
     <header>
-      <h1>APT - Apex Predator Tournament</h1>
+      <h1><a href="<?=BASEURL?>">Apex Champion Tournaments</a></h1>
     </header>
     <section>
       <?=$this->section('content')?>
