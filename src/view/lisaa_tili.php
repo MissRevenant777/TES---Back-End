@@ -7,6 +7,7 @@
     <label for="nimi">Full name:</label>
     <input id="nimi" type="text" name="nimi">
   </div>
+  <div>
     <label for="nimi">Gaming alias:</label>
     <input id="nimi" type="text" name="nimi">
   </div>
@@ -31,6 +32,6 @@
     <input id="salasana2" type="password" name="salasana2">
   </div>
   <div>
-    <input type="submit" name="laheta" value="Luo tili">
+    <input type="submit" name="laheta" value="Create Account">
   </div>
 </form>
