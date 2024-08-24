@@ -71,3 +71,28 @@ footer {
 .tapahtumat > div > div:nth-child(3) {
   text-align: right;
 }
+
+form > div {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+input {
+  border: 1.5px solid black;
+  border-radius: 0.3rem;
+  padding: 0.35rem;
+  font-size: 1rem;
+}
+
+
+input[type=submit] {
+  padding: 0.5rem 3rem;
+  border-radius: 0.3rem;
+  background-color: #648ca2;
+  color: white;
+  font-weight: bold;
+  min-width: 12rem;
+  margin: 1rem auto;
+}
+
