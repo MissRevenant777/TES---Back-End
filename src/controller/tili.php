@@ -60,6 +60,10 @@ function lisaaTili($formdata) {
   } else {
     if (!filter_var($formdata['email'], FILTER_VALIDATE_EMAIL)) {
       $error['email'] = "Wrong email form.";
+    } else {
+      if (haeHenkiloSahkopostilla($formdata['email'])) {
+        $error['email'] = "Email is already taken.";
+      }
     }
   }
 
