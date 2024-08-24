@@ -1,0 +1,73 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Arial;
+  background: rgb(0,34,0);
+  background-image: url("https://wallpapercave.com/wp/wp5457889.png");
+  background-size: 100%;
+}
+
+
+body {
+  background-image: url("https://e0.pxfuel.com/wallpapers/730/603/desktop-wallpaper-artstation-apex-legends-season-3-meltdown-hasin-ishrak-rafi-legend-logo.jpg");
+  background-size: 100%;
+  background-color: #fff;
+  min-height: 100vh;
+  max-width: 40rem;
+  margin: 0 auto;
+  box-shadow: 0px 0px 25px rgba(0,0,0,0.5);
+}
+
+header {
+  background-color: white;
+  background-image: url("https://www.pngkey.com/png/full/1005-10055707_apex-legends-lfg-apex-legends-banner-png.png");
+  padding: 3.5rem 1.0rem;
+  background-size: 100% 100%;
+}
+
+header h1 {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: normal;
+  margin-left: 0.5rem;
+}
+
+header a {
+  text-align: center;
+  color: white;
+  text-decoration: center;
+  text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em #40E0D0;
+}
+
+section {
+  padding: 1.5rem 1rem 1rem 1rem;
+}
+
+section h1 {
+  margin-bottom: 1rem;
+}
+
+hr {
+  border: none;
+  border-top: solid #1B1B3A 2px;
+  margin: 1rem;
+}
+
+footer {
+  font-size: 0.8rem;
+  text-align: center;
+  color: #1B1B3A;
+}
+
+.tapahtumat > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tapahtumat > div > div:nth-child(3) {
+  text-align: right;
+}
