@@ -32,17 +32,17 @@
       break;
     case '/lisaa_tili':
        if (isset($_POST['laheta'])) {
+        $formdata = cleanArrayData($_POST);
         require_once MODEL_DIR . 'henkilo.php';
-        $salasana = password_hash($_POST['salasana1'], PASSWORD_DEFAULT);
-        $id = lisaaHenkilo($_POST['nimi'],$_POST['alias'],$_POST['maa'],$_POST['discord']$_POST['email'],$salasana);
-        echo "Tili on luotu tunnisteella $id";
+        $salasana = password_hash($formdata['salasana1'], PASSWORD_DEFAULT);
+        $id = lisaaHenkilo($formdata['nimi'],$formdata['alias'],$formdata['maa'],$formdata['discord'],$formdata['email'],$salasana);
+        echo "Account created with ID $id";
         break;
       } else {
         echo $templates->render('lisaa_tili');
         break;
       }
-   default:
+    default:
       echo $templates->render('notfound');
   }
-
 ?> 
