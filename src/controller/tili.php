@@ -28,7 +28,7 @@ function lisaaTili($formdata) {
   // Tarkistetaan, että discord-tunnus on määritelty ja se on
   // muodossa tunnus#0000.
   if (!isset($formdata['discord']) || !$formdata['discord']) {
-    $error['discord'] = "Enter your Discord in ID#0000 -form.";
+    $error['discord'] = "Enter your Discord (ID#0000) ";
   } else {
     if (!preg_match("/^.+#\d{4}$/",$formdata['discord'])) {
       $error['discord'] = "Discord-ID is incorrect.";
@@ -42,6 +42,10 @@ function lisaaTili($formdata) {
   } else {
     if (!filter_var($formdata['email'], FILTER_VALIDATE_EMAIL)) {
       $error['email'] = "Your email is not valid.";
+    } else {
+      if (haeHenkiloSahkopostilla($formdata['email'])) {
+        $error['email'] = "Email is already registered.";
+      }
     }
   }
 
