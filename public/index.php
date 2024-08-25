@@ -1,5 +1,9 @@
 <?php
 
+  // Aloitetaan istunnot.
+  session_start();
+
+
   // Suoritetaan projektin alustusskripti.
   require_once '../src/init.php';
 
@@ -45,9 +49,18 @@
         echo $templates->render('lisaa_tili', ['formdata' => [], 'error' => []]);
         break;
       }
-    case '/kirjaudu':
-      echo $templates->render('kirjaudu', [ 'error' => []]);
-      break;
+    case "/kirjaudu":
+      if (isset($_POST['laheta'])) {
+        require_once CONTROLLER_DIR . 'kirjaudu.php';
+        if (tarkistaKirjautuminen($_POST['email'],$_POST['salasana'])) {
+          $_SESSION['user'] = $_POST['email'];
+          header("Location: " . $config['urls']['baseUrl']);
+        } else {
+          echo $templates->render('kirjaudu', [ 'error' => ['virhe' => 'Wrong email or password!']]);
+        }
+      } else {
+        echo $templates->render('kirjaudu', [ 'error' => []]);
+      }      break;
     default:
       echo $templates->render('notfound');
   }
