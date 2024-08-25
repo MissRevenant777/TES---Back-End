@@ -7,6 +7,16 @@
   // Suoritetaan projektin alustusskripti.
   require_once '../src/init.php';
 
+  // Haetaan kirjautuneen käyttäjän tiedot.
+  if (isset($_SESSION['user'])) {
+    require_once MODEL_DIR . 'henkilo.php';
+    $loggeduser = haeHenkilo($_SESSION['user']);
+  } else {
+    $loggeduser = NULL;
+  }
+
+
+
   // Siistitään polku urlin alusta ja mahdolliset parametrit urlin lopusta.
   // Siistimisen jälkeen osoite /~jmakijaa/nayttotyo/tapahtuma?id=1 on 
   // lyhentynyt muotoon /tapahtuma.
@@ -27,9 +37,17 @@
       break;
     case '/tapahtuma':
       require_once MODEL_DIR . 'tapahtuma.php';
+      require_once MODEL_DIR . 'ilmoittautuminen.php';
       $tapahtuma = haeTapahtuma($_GET['id']);
       if ($tapahtuma) {
-        echo $templates->render('tapahtuma',['tapahtuma' => $tapahtuma]);
+        if ($loggeduser) {
+          $ilmoittautuminen = haeIlmoittautuminen($loggeduser['idhenkilo'],$tapahtuma['idtapahtuma']);
+        } else {
+          $ilmoittautuminen = NULL;
+        }
+        echo $templates->render('tapahtuma',['tapahtuma' => $tapahtuma,
+                                             'ilmoittautuminen' => $ilmoittautuminen,
+                                             'loggeduser' => $loggeduser]);
       } else {
         echo $templates->render('tapahtumanotfound');
       }
