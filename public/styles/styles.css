@@ -26,6 +26,11 @@ header {
   background-color: white;
   background-image: url("https://www.pngkey.com/png/full/1005-10055707_apex-legends-lfg-apex-legends-banner-png.png");
   padding: 3.5rem 1.0rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: right;
+  font-size: 1rem;
   background-size: 100% 100%;
 }
 
