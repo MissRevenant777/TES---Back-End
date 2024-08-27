@@ -8,6 +8,16 @@
   <body>
     <header>
       <h1><a href="<?=BASEURL?>">Apex Legends Champion Tournaments</a></h1>
+      <div class="profile">
+        <?php
+          if (isset($_SESSION['user'])) {
+            echo "<div>$_SESSION[user]</div>";
+            echo "<div><a href='logout'>Logout</a></div>";
+          } else {
+            echo "<div><a href='kirjaudu'>Login</a></div>";
+          }
+        ?>
+      </div>
     </header>
     <section>
       <?=$this->section('content')?>
