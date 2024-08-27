@@ -1,6 +1,6 @@
 <?php
 
-function lisaaTili($formdata) {
+function lisaaTili($formdata, $baseurl='') {
 
   // Tuodaan henkilo-mallin funktiot, joilla voidaan lisätä
   // henkilön tiedot tietokantaan.
@@ -94,18 +94,37 @@ function lisaaTili($formdata) {
     // onnistui rivin lisääminen. Muuten liäämisessä ilmeni
     // ongelma.
     if ($idhenkilo) {
-      return [
-        "status" => 200,
-        "id"     => $idhenkilo,
-        "data"   => $formdata
-      ];
+
+      // Luodaan käyttäjälle aktivointiavain ja muodostetaan
+      // aktivointilinkki.
+      require_once(HELPERS_DIR . "secret.php");
+      $avain = generateActivationCode($email);
+      $url = 'https://' . $_SERVER['HTTP_HOST'] . $baseurl . "/vahvista?key=$avain";
+
+      // Päivitetään aktivointiavain tietokantaan ja lähetetään
+      // käyttäjälle sähköpostia. Jos tämä onnistui, niin palautetaan
+      // palautusarvona tieto tilin onnistuneesta luomisesta. Muuten
+      // palautetaan virhekoodi, joka ilmoittaa, että jokin
+      // lisäyksessä epäonnistui.
+
+if (paivitaVahvavain($email,$avain) && lahetaVahvavain($email,$url)) {
+        return [
+          "status" => 200,
+          "id"     => $idhenkilo,
+          "data"   => $formdata
+        ];
+      } else {
+        return [
+          "status" => 500,
+          "data"   => $formdata
+        ];
+      }
     } else {
       return [
         "status" => 500,
         "data"   => $formdata
       ];
     }
-
   } else {
 
     // Lomaketietojen tarkistuksessa ilmeni virheitä.
@@ -116,6 +135,16 @@ function lisaaTili($formdata) {
     ];
 
   }
+}
+
+function lahetaVahvavain($email,$url) {
+  $message = "Hi there!\n\n" . 
+             "This email has registered for the Apex Legends tournament service.\n" . 
+             "By confirming the email, click on the link below.\n" . 
+             "$url\n\n" . 
+             "If you are not registered for the service, this message is unnecessary and you can delete it.\n\n" .
+             "Cheers, Champions";
+  return mail($email,'ALT -activation link',$message);
 }
 
 ?>
