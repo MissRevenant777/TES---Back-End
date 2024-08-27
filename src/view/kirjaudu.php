@@ -17,4 +17,7 @@
   </div>
 </form>
 
-<div class="info">If you don't have an account, you can create one <a href="lisaa_tili">here</a>.</div>
+<div class="info">
+  If you don't have an account, you can create one <a href="lisaa_tili">here</a>.<br>
+  If you need to reset your password, click <a href="tilaa_vaihtoavain">here</a>.
+</div>
