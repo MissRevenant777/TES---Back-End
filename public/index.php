@@ -80,7 +80,7 @@
       if (isset($_POST['laheta'])) {
         $formdata = cleanArrayData($_POST);
         require_once CONTROLLER_DIR . 'tili.php';
-        $tulos = lisaaTili($formdata);
+        $tulos = lisaaTili($formdata,$config['urls']['baseUrl']);
         if ($tulos['status'] == "200") {
           echo $templates->render('tili_luotu', ['formdata' => $formdata]);
           break;
@@ -91,13 +91,32 @@
         echo $templates->render('lisaa_tili', ['formdata' => [], 'error' => []]);
         break;
       }
+    case "/vahvista":
+      if (isset($_GET['key'])) {
+        $key = $_GET['key'];
+        require_once MODEL_DIR . 'henkilo.php';
+        if (vahvistaTili($key)) {
+          echo $templates->render('tili_aktivoitu');
+        } else {
+          echo $templates->render('tili_aktivointi_virhe');
+        }
+      } else {
+        header("Location: " . $config['urls']['baseUrl']);
+      }
+      break;
     case "/kirjaudu":
       if (isset($_POST['laheta'])) {
         require_once CONTROLLER_DIR . 'kirjaudu.php';
         if (tarkistaKirjautuminen($_POST['email'],$_POST['salasana'])) {
-          session_regenerate_id();
-          $_SESSION['user'] = $_POST['email'];
-          header("Location: " . $config['urls']['baseUrl']);
+          require_once MODEL_DIR . 'henkilo.php';
+          $user = haeHenkilo($_POST['email']);
+          if ($user['vahvistettu']) {
+            session_regenerate_id();
+            $_SESSION['user'] = $user['email'];
+            header("Location: " . $config['urls']['baseUrl']);
+          } else {
+            echo $templates->render('kirjaudu', [ 'error' => ['virhe' => 'Verify your account! Please, verify your account by clicking the link we mailed you.']]);
+          }
         } else {
           echo $templates->render('kirjaudu', [ 'error' => ['virhe' => 'Wrong email or password!']]);
         }
